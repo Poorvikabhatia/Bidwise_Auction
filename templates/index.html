@@ -37,7 +37,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* ==================== NAVBAR ==================== */
         nav {
             background-color: var(--bg-secondary);
             box-shadow: var(--shadow);
@@ -109,7 +108,6 @@
             transform: scale(1.2);
         }
 
-        /* ==================== HERO SECTION ==================== */
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -158,15 +156,20 @@
             max-width: 600px;
             margin: 0 auto;
         }
-            max-width: 800px;
-            margin: 0 auto;
-        }
 
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 0.5rem;
             font-weight: 800;
             animation: fadeInDown 0.8s ease-out backwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease-out 0.2s backwards;
         }
 
         .hero p {
@@ -198,7 +201,6 @@
             color: white;
         }
 
-        /* ==================== CONTAINER ==================== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -213,7 +215,10 @@
             text-align: center;
         }
 
-        /* ==================== AUCTION GRID ==================== */
+        body.dark-mode .section-title {
+            color: #f0f0f0;
+        }
+
         .auctions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -227,12 +232,12 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .auction-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15);
         }
 
         .auction-header {
@@ -273,6 +278,12 @@
             font-weight: 700;
         }
 
+        .timer-value.critical {
+            animation: pulse 0.5s ease-in-out infinite;
+            color: #ff4757;
+            font-weight: 700;
+        }
+
         .bid-section {
             display: flex;
             gap: 0.5rem;
@@ -304,10 +315,16 @@
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
         .bid-btn:hover:not(:disabled) {
             background-color: #764ba2;
+        }
+
+        .bid-btn:active {
+            transform: scale(0.95);
         }
 
         .bid-btn:disabled {
@@ -315,7 +332,6 @@
             cursor: not-allowed;
         }
 
-        /* ==================== NO AUCTIONS MESSAGE ==================== */
         .empty-state {
             text-align: center;
             padding: 3rem 2rem;
@@ -328,7 +344,6 @@
             color: #666;
         }
 
-        /* ==================== CHATBOT ==================== */
         #chatbotToggle {
             position: fixed;
             bottom: 2rem;
@@ -480,58 +495,6 @@
             animation: pulse 1s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        /* ==================== RESPONSIVE ==================== */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .auctions-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .nav-container {
-                padding: 1rem;
-            }
-
-            #chatbotWindow {
-                width: 300px;
-                height: 400px;
-                bottom: 5rem;
-                right: 1rem;
-            }
-
-            #chatbotToggle {
-                bottom: 1rem;
-                right: 1rem;
-            }
-        }
-
-        /* ==================== HERO SUBTITLE ==================== */
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            animation: fadeInDown 0.8s ease-out 0.2s backwards;
-        }
-
-        /* ==================== FEATURED AUCTIONS SECTION ==================== */
         .featured-section {
             background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
             padding: 4rem 2rem;
@@ -617,6 +580,8 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .card-btn:hover {
@@ -624,7 +589,10 @@
             box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
         }
 
-        /* ==================== STATS SECTION ==================== */
+        .card-btn:active {
+            transform: scale(0.95);
+        }
+
         .stats-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -665,7 +633,6 @@
             opacity: 0.95;
         }
 
-        /* ==================== HOW IT WORKS SECTION ==================== */
         .how-it-works-section {
             padding: 4rem 2rem;
             background: var(--bg-primary);
@@ -722,7 +689,101 @@
             line-height: 1.5;
         }
 
-        /* ==================== ANIMATIONS ==================== */
+        .activity-feed {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 280px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            z-index: 90;
+            animation: slideInRight 0.4s ease-out;
+            max-height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .activity-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .activity-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .activity-minimize {
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+
+        .activity-minimize:hover {
+            transform: scale(1.2);
+        }
+
+        .activity-content {
+            overflow-y: auto;
+            padding: 0.75rem;
+            flex: 1;
+        }
+
+        .activity-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-left: 3px solid #667eea;
+            animation: slideInLeft 0.3s ease-out;
+        }
+
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 89;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.4s ease-out;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .floating-btn:active {
+            transform: scale(0.95);
+            animation: ripple 0.6s ease-out;
+        }
+
+        .btn-icon {
+            animation: bounce 1s infinite;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -756,8 +817,131 @@
             }
         }
 
-        /* ==================== RESPONSIVE ==================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideOutLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes ripple {
+            0% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            }
+        }
+
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
         @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .auctions-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            #chatbotWindow {
+                width: 300px;
+                height: 400px;
+                bottom: 5rem;
+                right: 1rem;
+            }
+
+            #chatbotToggle {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
             .featured-grid,
             .stats-grid,
             .steps-grid {
@@ -779,6 +963,7 @@
             .step-card:hover {
                 transform: translateY(-3px);
             }
+
             .logo {
                 font-size: 1.2rem;
             }
@@ -787,18 +972,27 @@
                 padding: 3rem 1rem;
             }
 
-            .hero h1 {
-                font-size: 1.5rem;
-            }
-
             .nav-links {
                 gap: 0.5rem;
+            }
+
+            .activity-feed {
+                bottom: 90px;
+                right: 10px;
+                width: 250px;
+            }
+
+            .floating-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav>
         <div class="nav-container">
             <a class="logo" href="/">BidWise</a>
@@ -811,17 +1005,15 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <div class="hero">
         <div class="hero-content">
             <h1>Welcome to BidWise</h1>
-            <h2 class="hero-subtitle" style="color: white;">Smart Auction Platform</h2>
+            <h2 class="hero-subtitle">Smart Auction Platform</h2>
             <p>Bid smarter, win faster with real-time auctions</p>
             <a class="hero-btn" href="/login">Explore Auctions</a>
         </div>
     </div>
 
-    <!-- Main Content -->
     <div class="container">
         <h2 class="section-title">Active Auctions</h2>
 
@@ -868,15 +1060,12 @@
         {% endif %}
     </div>
 
-    <!-- Featured Auctions Section -->
     <div class="featured-section">
         <div class="container">
             <h2 class="section-title">Featured Auctions</h2>
             <div class="featured-grid">
                 <div class="featured-card">
-                    <div class="card-image">
-                        <span class="image-placeholder">📱</span>
-                    </div>
+                    <div class="card-image">📱</div>
                     <div class="card-content">
                         <h3>Vintage Camera</h3>
                         <div class="card-stats">
@@ -894,9 +1083,7 @@
                 </div>
 
                 <div class="featured-card">
-                    <div class="card-image">
-                        <span class="image-placeholder">⌚</span>
-                    </div>
+                    <div class="card-image">⌚</div>
                     <div class="card-content">
                         <h3>Luxury Watch</h3>
                         <div class="card-stats">
@@ -914,9 +1101,7 @@
                 </div>
 
                 <div class="featured-card">
-                    <div class="card-image">
-                        <span class="image-placeholder">🎮</span>
-                    </div>
+                    <div class="card-image">🎮</div>
                     <div class="card-content">
                         <h3>Gaming Console</h3>
                         <div class="card-stats">
@@ -936,7 +1121,6 @@
         </div>
     </div>
 
-    <!-- Live Stats Section -->
     <div class="stats-section">
         <div class="container">
             <div class="stats-grid">
@@ -956,7 +1140,6 @@
         </div>
     </div>
 
-    <!-- How It Works Section -->
     <div class="how-it-works-section">
         <div class="container">
             <h2 class="section-title">How It Works</h2>
@@ -979,8 +1162,40 @@
             </div>
         </div>
     </div>
+
+    <button id="chatbotToggle" title="Chat with Korin">💬</button>
+
+    <div id="chatbotWindow">
+        <div class="chatbot-header">
+            <span>Hi! I am Korin, your AI assistant to help with auctions.</span>
+            <button id="chatbotClose">×</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages"></div>
+        <div class="chatbot-input-section">
+            <input type="text" id="chatInput" placeholder="Ask me...">
+            <button class="chat-voice-btn" id="voiceBtn" title="Voice input">🎤</button>
+            <button class="chat-send-btn" id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <div id="activityFeed" class="activity-feed">
+        <div class="activity-header">
+            <span class="activity-title">Live Activity</span>
+            <span class="activity-minimize">−</span>
+        </div>
+        <div class="activity-content">
+            <div class="activity-item">User placed a bid on "Vintage Camera"</div>
+            <div class="activity-item">Auction ending in 2 minutes</div>
+            <div class="activity-item">New auction: "Gaming Console"</div>
+            <div class="activity-item">User won "Luxury Watch"</div>
+        </div>
+    </div>
+
+    <button id="floatingBtn" class="floating-btn" title="View Auctions">
+        <span class="btn-icon">↓</span>
+    </button>
+
     <script>
-        // Timer update function
         function formatTime(seconds) {
             if (seconds <= 0) return "Ended";
             const days = Math.floor(seconds / 86400);
@@ -1018,11 +1233,9 @@
             });
         }
 
-        // Update timers immediately and then every second
         updateTimers();
         setInterval(updateTimers, 1000);
 
-        // Bid button click handler
         document.querySelectorAll('.bid-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const auctionId = this.getAttribute('data-auction-id');
@@ -1066,32 +1279,10 @@
                 .catch(err => alert('Error: ' + err));
             });
         });
-    </script>
 
-    <!-- Chatbot Toggle Button -->
-    <button id="chatbotToggle" title="Chat with Korin">💬</button>
-
-    <!-- Chatbot Window -->
-    <div id="chatbotWindow">
-        <div class="chatbot-header">
-            <span>Hi! I am Korin, your AI assistant to help with auctions.</span>
-            <button id="chatbotClose">×</button>
-        </div>
-        <div class="chatbot-messages" id="chatMessages"></div>
-        <div class="chatbot-input-section">
-            <input type="text" id="chatInput" placeholder="Ask me...">
-            <button class="chat-voice-btn" id="voiceBtn" title="Voice input">🎤</button>
-            <button class="chat-send-btn" id="sendBtn">Send</button>
-        </div>
-    </div>
-
-    <!-- Dark Mode and Chatbot JavaScript -->
-    <script>
-        // ========== DARK MODE TOGGLE ==========
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
 
-        // Load saved theme
         const savedTheme = localStorage.getItem('theme') || 'light';
         if (savedTheme === 'dark') {
             body.classList.add('dark-mode');
@@ -1111,7 +1302,6 @@
             }
         });
 
-        // ========== CHATBOT FUNCTIONALITY ==========
         const chatbotToggle = document.getElementById('chatbotToggle');
         const chatbotWindow = document.getElementById('chatbotWindow');
         const chatbotClose = document.getElementById('chatbotClose');
@@ -1120,7 +1310,6 @@
         const voiceBtn = document.getElementById('voiceBtn');
         const chatMessages = document.getElementById('chatMessages');
 
-        // Toggle chatbot window
         chatbotToggle.addEventListener('click', function() {
             chatbotWindow.classList.toggle('open');
             if (chatbotWindow.classList.contains('open')) {
@@ -1128,12 +1317,10 @@
             }
         });
 
-        // Close chatbot
         chatbotClose.addEventListener('click', function() {
             chatbotWindow.classList.remove('open');
         });
 
-        // Send message
         sendBtn.addEventListener('click', sendMessage);
         chatInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') sendMessage();
@@ -1143,11 +1330,9 @@
             const message = chatInput.value.trim();
             if (!message) return;
 
-            // Add user message
             addMessage(message, 'user');
             chatInput.value = '';
 
-            // Add bot response
             setTimeout(() => {
                 const response = getBotResponse(message);
                 addMessage(response, 'bot');
@@ -1156,7 +1341,7 @@
 
         function addMessage(text, sender) {
             const msgEl = document.createElement('div');
-            msgEl.className = `chat-message ${sender}-message`;
+            msgEl.className = 'chat-message ' + sender + '-message';
             msgEl.textContent = text;
             chatMessages.appendChild(msgEl);
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -1165,26 +1350,21 @@
         function getBotResponse(message) {
             const lower = message.toLowerCase();
 
-            // Check for bid-related keywords
             if (lower.includes('bid')) {
                 return 'Place a bid higher than the current highest bid using your credits.';
             }
             
-            // Check for credit-related keywords
             if (lower.includes('credit')) {
                 return 'Credits are only deducted if you win the auction.';
             }
             
-            // Check for winner-related keywords
             if (lower.includes('winner') || lower.includes('win')) {
                 return 'The highest bidder when the timer ends is the winner.';
             }
             
-            // Default response
             return 'I can help you with bidding, credits, and auctions.';
         }
 
-        // ========== VOICE INPUT ==========
         voiceBtn.addEventListener('click', function() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
@@ -1222,6 +1402,102 @@
 
             recognition.start();
         });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('scroll-animate');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.featured-card, .stat-card, .step-card, .featured-section, .stats-section, .how-it-works-section').forEach(el => {
+            observer.observe(el);
+        });
+
+        const floatingBtn = document.getElementById('floatingBtn');
+        if (floatingBtn) {
+            floatingBtn.addEventListener('click', () => {
+                const auctionsSection = document.querySelector('.container');
+                if (auctionsSection) {
+                    auctionsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+
+        const activityContent = document.querySelector('.activity-content');
+        const activities = [
+            'User placed a bid on "Vintage Camera"',
+            'Auction ending in 2 minutes',
+            'New auction: "Gaming Console"',
+            'User won "Luxury Watch"',
+            'Bid updated on "Luxury Watch"',
+            'User placed a bid on "Gaming Console"',
+            'Auction: "Vintage Camera" ended',
+            'New user joined the platform'
+        ];
+
+        let activityIndex = 0;
+        setInterval(() => {
+            if (activityContent) {
+                const oldestItem = activityContent.querySelector('.activity-item');
+                if (oldestItem) {
+                    oldestItem.style.animation = 'slideOutLeft 0.3s ease-out';
+                    setTimeout(() => oldestItem.remove(), 300);
+                }
+
+                const newItem = document.createElement('div');
+                newItem.className = 'activity-item';
+                newItem.textContent = activities[activityIndex % activities.length];
+                activityContent.appendChild(newItem);
+                activityIndex++;
+
+                const items = activityContent.querySelectorAll('.activity-item');
+                if (items.length > 4) {
+                    items[0].remove();
+                }
+            }
+        }, 5000);
+
+        const minimize = document.querySelector('.activity-minimize');
+        if (minimize) {
+            minimize.addEventListener('click', () => {
+                const feed = document.getElementById('activityFeed');
+                const content = feed.querySelector('.activity-content');
+                if (content.style.display === 'none') {
+                    content.style.display = 'block';
+                    minimize.textContent = '−';
+                } else {
+                    content.style.display = 'none';
+                    minimize.textContent = '+';
+                }
+            });
+        }
+
+        function updateCountdownStyles() {
+            document.querySelectorAll('.timer-value').forEach(timer => {
+                if (timer.textContent) {
+                    const text = timer.textContent.trim();
+                    if (text.match(/^\d+s/)) {
+                        const seconds = parseInt(text) || 0;
+                        if (seconds <= 10 && seconds > 0) {
+                            timer.classList.add('critical');
+                        } else {
+                            timer.classList.remove('critical');
+                        }
+                    }
+                }
+            });
+        }
+
+        setInterval(updateCountdownStyles, 1000);
+        updateCountdownStyles();
     </script>
 </body>
 </html>
