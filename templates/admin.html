@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BidWise - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🏛️ BidWise</div>
+            <nav class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('admin_panel') }}">Admin Panel</a>
+                <span style="color: #e74c3c; font-weight: bold;">👑 {{ user.name }}</span>
+                <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+            </nav>
+        </header>
+
+        <main>
+            <h1 style="color: #e74c3c; margin-bottom: 30px;">👑 Admin Dashboard</h1>
+
+            <!-- Create Auction Section -->
+            <section class="admin-section">
+                <h2>Create New Auction</h2>
+                <div class="create-auction-form">
+                    <div class="form-group">
+                        <label for="auction-title">Auction Title</label>
+                        <input type="text" id="auction-title" placeholder="e.g., Vintage Watch Collection">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="auction-description">Description</label>
+                        <textarea id="auction-description" placeholder="Describe the item..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="auction-starting-price">Starting Price ($)</label>
+                        <input type="number" id="auction-starting-price" step="0.01" min="0" placeholder="100.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="auction-duration">Duration (Hours)</label>
+                        <input type="number" id="auction-duration" value="24" min="0.5" step="0.5">
+                    </div>
+
+                    <button class="btn btn-success create-auction-btn" style="width: 100%;">
+                        Create Auction
+                    </button>
+                </div>
+            </section>
+
+            <!-- All Auctions Section -->
+            <section class="admin-section">
+                <h2>All Auctions</h2>
+                {% if auctions %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Starting Price</th>
+                                <th>Current Bid</th>
+                                <th>Highest Bidder</th>
+                                <th>End Time</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for auction in auctions %}
+                                <tr>
+                                    <td>#{{ auction['id'] }}</td>
+                                    <td>{{ auction['title'][:30] }}</td>
+                                    <td>${{ "%.2f"|format(auction['starting_price']) }}</td>
+                                    <td><strong>${{ "%.2f"|format(auction['current_bid'] or auction['starting_price']) }}</strong></td>
+                                    <td>{{ auction['highest_bidder_name'] or '-' }}</td>
+                                    <td>{{ auction['end_time'][:16] }}</td>
+                                    <td>
+                                        <span class="status-badge {% if auction['status'] == 'active' %}status-active{% else %}status-closed{% endif %}">
+                                            {{ auction['status']|upper }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if auction['status'] == 'active' and auction['highest_bidder_id'] %}
+                                            <button class="btn btn-primary declare-winner-btn" data-auction-id="{{ auction['id'] }}">
+                                                Declare Winner
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p style="color: #999;">No auctions created yet.</p>
+                {% endif %}
+            </section>
+
+            <!-- All Bids Section -->
+            <section class="admin-section">
+                <h2>All Bids</h2>
+                {% if all_bids %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Auction</th>
+                                <th>Bidder</th>
+                                <th>Bid Amount</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for bid in all_bids %}
+                                <tr>
+                                    <td>#{{ bid['id'] }}</td>
+                                    <td>{{ bid['title'][:30] }}</td>
+                                    <td>{{ bid['user_name'] }}</td>
+                                    <td><strong>${{ "%.2f"|format(bid['bid_amount']) }}</strong></td>
+                                    <td>{{ bid['bid_time'][:16] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p style="color: #999;">No bids placed yet.</p>
+                {% endif %}
+            </section>
+
+            <!-- All Users Section -->
+            <section class="admin-section">
+                <h2>All Users</h2>
+                {% if users %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Credits Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user_row in users %}
+                                <tr>
+                                    <td>#{{ user_row['id'] }}</td>
+                                    <td>{{ user_row['name'] }}</td>
+                                    <td>{{ user_row['email'] }}</td>
+                                    <td><strong>${{ "%.2f"|format(user_row['credits']) }}</strong></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p style="color: #999;">No users registered.</p>
+                {% endif %}
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
