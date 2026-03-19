@@ -76,8 +76,13 @@ BidWise is a full-stack online auction platform that enables users to participat
 5. Open in browser:
 
    ```
-   https://bidwise-auction.onrender.com
+   http://127.0.0.1:5000
    ```
+
+---
+
+## 🌐 Live Demo
+🔗 https://bidwise-auction.onrender.com
 
 ---
 
